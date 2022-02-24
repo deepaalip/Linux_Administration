@@ -1,0 +1,65 @@
+﻿
+1)1)  List out 5 files in your system which consuming most of the disk space
+ubuntu@ip-172-31-19-173:~$ du -a | sort -n -r | head -n 5
+40	.
+8	./.ssh
+8	./.config
+4	./.ssh/authorized_keys
+4	./.profile
+
+----------------------------------------------------------------------------------------------------------------
+
+2) Create one common folder in such way that anyone can create files inside that independently and should not be able to delete other users files from that common folder.
+
+ubuntu@ip-172-31-19-173:~$ sudo adduser user1
+
+ubuntu@ip-172-31-19-173:~$ sudo mkdir -p /test/test1
+ubuntu@ip-172-31-19-173:~$ sudo groupadd project
+ubuntu@ip-172-31-19-173:~$ sudo usermod -a -G project user1
+ubuntu@ip-172-31-19-173:~$  sudo chgrp -R project /test/test1
+ubuntu@ip-172-31-19-173:~$ sudo chmod -R 777 /test/test1
+
+--------------------------------------------------------------------------------------------------------------------
+3) Create user name "shubham" and add that user in the group "adm" 
+      a) Create folder /data , change owner and group as  "root:adm
+      
+
+
+
+buntu@ip-172-31-19-173:/data$ sudo useradd -g adm shubham
+
+ubuntu@ip-172-31-19-173:/data$ id shubham
+uid=1004(shubham) gid=1005(shubham) groups=1005(shubham)
+ubuntu@ip-172-31-19-173:/data$ sudo -i
+root@ip-172-31-19-173:~# mkdir /data
+
+root@ip-172-31-19-173:~# ll
+total 28
+drwx------  4 root root 4096 Feb 22 07:58 ./
+drwxr-xr-x 23 root root 4096 Feb 22 17:41 ../
+-rw-r--r--  1 root root 3106 Dec  5  2019 .bashrc
+-rw-------  1 root root   28 Feb 22 07:58 .lesshst
+-rw-r--r--  1 root root  161 Dec  5  2019 .profile
+drwx------  2 root root 4096 Feb 16 17:08 .ssh/
+drwxr-xr-x  4 root root 4096 Feb 16 17:08 snap/
+
+root@ip-172-31-19-173:~# cd /data
+
+root@ip-172-31-19-173:/data# chown root:adm /data/
+---------------------------------------------------------------------------------------------------------
+
+
+
+b) Change /data permission such a way that user can able to write data in this folder and ownership of files or folder which you creates in this folder should be same as parent folder i.e /data folder permission
+
+root@ip-172-31-19-173:/data# chmod 664 /data/
+
+root@ip-172-31-19-173:/data# touch test.txt
+root@ip-172-31-19-173:/data# chmod -R 664 test.txt
+root@ip-172-31-19-173:/data# chown root:adm test.txt
+root@ip-172-31-19-173:/data# ls
+test.txt
+
+
+
+
