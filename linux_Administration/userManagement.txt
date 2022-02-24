@@ -1,0 +1,92 @@
+﻿1)  Create user "nikhil" with home directory set as "/home/nikhil"
+       a) nikhil user should have "/bin/sh" shell for his environment
+       
+
+ubuntu@ip-172-31-19-173:/$ sudo mkdir /home/nikhil
+
+ubuntu@ip-172-31-19-173:/$ cd /home/nikhil
+ubuntu@ip-172-31-19-173:/home/nikhil$ sudo useradd nikhil
+
+----------------------------------------------------------------------------------------------------
+
+
+ubuntu@ip-172-31-19-173:/home/nikhil$ sudo passwd nikhil
+New password: 
+Retype new password: 
+passwd: password updated successfully
+ubuntu@ip-172-31-19-173:/home/nikhil$ sudo useradd -D
+GROUP=100
+HOME=/home
+INACTIVE=-1
+EXPIRE=
+SHELL=/bin/sh
+SKEL=/etc/skel
+CREATE_MAIL_SPOOL=no
+ubuntu@ip-172-31-19-173:/home/nikhil$ sudo useradd -D -s /bin/sh
+---------------------------------------------------------------------------------------------------------
+
+b) His password should expire in 9 days and 2 days before password expiry, he should get warning. User account must expire in 1 month from creation date
+
+ubuntu@ip-172-31-19-173:/home/nikhil$ sudo chage -l nikhil
+Last password change					: Feb 22, 2022
+Password expires					: never
+Password inactive					: never
+Account expires						: never
+Minimum number of days between password change		: 0
+Maximum number of days between password change		: 99999
+Number of days of warning before password expires	: 7
+
+ubuntu@ip-172-31-19-173:/home/nikhil$ sudo chage -E30 nikhil
+
+ubuntu@ip-172-31-19-173:/home/nikhil$ sudo chage -W 2 nikhil
+
+ubuntu@ip-172-31-19-173:/home/nikhil$ sudo chage -W 9 nikhil
+
+--------------------------------------------------------------------------------------------------
+
+c) Give him root privileges to start/stop cron daemon.
+
+ubuntu@ip-172-31-19-173:/home/nikhil$ sudo service cron start
+ubuntu@ip-172-31-19-173:/home/nikhil$ sudo service cron stop
+ubuntu@ip-172-31-19-173:/home/nikhil$ sudo service cron restart
+
+
+ubuntu@ip-172-31-19-173:/home/nikhil$ sudo update-rc.d cron defaults
+ubuntu@ip-172-31-19-173:/home/nikhil$ service crond restart
+
+------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+
+
+2) Inside folder "/" , create new home directory as "nikhil" (/nikhil) and setup this folder as a home directory for user "nikhil"
+
+
+ubuntu@ip-172-31-19-173:/home/nikhil$ cd ..
+ubuntu@ip-172-31-19-173:/home$ cd ..
+ubuntu@ip-172-31-19-173:/$ sudo mkdir nikhil 
+ubuntu@ip-172-31-19-173:/$ sudo usermod -d /nikhil nikhil
+ubuntu@ip-172-31-19-173:/$ cd ~
+ubuntu@ip-172-31-19-173:~$ pwd
+/home/ubuntu
+ubuntu@ip-172-31-19-173:~$ sudo usermod -m -d /nikhil nikhil
+usermod: no changes
+ubuntu@ip-172-31-19-173:~$ sudo cd /home
+sudo: cd: command not found
+ubuntu@ip-172-31-19-173:~$ cd /home
+ubuntu@ip-172-31-19-173:/home$ cd ..
+ubuntu@ip-172-31-19-173:/$ pwd
+/
+ubuntu@ip-172-31-19-173:/$ sudo usermod -m -d /nikhil nikhil
+usermod: no changes
+ubuntu@ip-172-31-19-173:/$ sudo usermod -d /nikhil nikhil
+usermod: no changes
+ubuntu@ip-172-31-19-173:/$ cd /nikhil
+ubuntu@ip-172-31-19-173:/nikhil$ pwd
+/nikhil
+ubuntu@ip-172-31-19-173:/nikhil$ 
+ubuntu@ip-172-31-19-173:/nikhil$ 
+
+
+
+
+
