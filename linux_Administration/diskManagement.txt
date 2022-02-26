@@ -1,0 +1,533 @@
+﻿-------------------Disk Management-------------------------
+
+a) Create 2 primary partitions of 3 GB each
+
+b) Create 2 logical partitions of 6 GB each
+
+
+ubuntu@ip-172-31-89-128:~$ sudo su
+ 
+root@ip-172-31-89-128:/home/ubuntu# fdisk -l
+Disk /dev/loop0: 24.10 MiB, 26189824 bytes, 51152 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/loop1: 26.65 MiB, 27930624 bytes, 54552 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/loop2: 55.5 MiB, 58183680 bytes, 113640 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/loop3: 55.52 MiB, 58204160 bytes, 113680 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/loop4: 61.85 MiB, 64835584 bytes, 126632 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/loop5: 61.91 MiB, 64897024 bytes, 126752 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/loop6: 67.25 MiB, 70508544 bytes, 137712 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/loop7: 67.94 MiB, 71221248 bytes, 139104 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/xvda: 8 GiB, 8589934592 bytes, 16777216 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x24ca9e81
+
+Device     Boot Start      End  Sectors Size Id Type
+/dev/xvda1 *     2048 16777182 16775135   8G 83 Linux
+
+
+Disk /dev/xvdf: 20 GiB, 21474836480 bytes, 41943040 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x790b8296
+
+Device     Boot   Start      End Sectors Size Id Type
+/dev/xvdf1         2048  6293503 6291456   3G 83 Linux
+/dev/xvdf4      6293504 12584959 6291456   3G  5 Extended
+
+
+Disk /dev/xvdg: 21 GiB, 22548578304 bytes, 44040192 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/loop8: 43.6 MiB, 45703168 bytes, 89264 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+------------------------------------------------------------------------------------------------------------------
+
+//Create partition in disk 
+
+root@ip-172-31-89-128:/home/ubuntu# fdisk  /dev/xvdf
+
+Welcome to fdisk (util-linux 2.34).
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): d
+Partition number (1,4, default 4): 1
+
+Partition 1 has been deleted.
+
+Command (m for help): d
+Selected partition 4
+Partition 4 has been deleted.
+
+Command (m for help): 4
+4: unknown command
+
+Command (m for help): n
+Partition type
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended (container for logical partitions)
+Select (default p): p
+Partition number (1-4, default 1): 
+First sector (2048-41943039, default 2048): 
+Last sector, +/-sectors or +/-size{K,M,G,T,P} (2048-41943039, default 41943039): +3G
+
+Created a new partition 1 of type 'Linux' and of size 3 GiB.
+
+Command (m for help): n
+Partition type
+   p   primary (1 primary, 0 extended, 3 free)
+   e   extended (container for logical partitions)
+Select (default p): p
+Partition number (2-4, default 2): 
+First sector (6293504-41943039, default 6293504): 
+Last sector, +/-sectors or +/-size{K,M,G,T,P} (6293504-41943039, default 41943039): +3G
+
+Created a new partition 2 of type 'Linux' and of size 3 GiB.
+
+Command (m for help): n
+Partition type
+   p   primary (2 primary, 0 extended, 2 free)
+   e   extended (container for logical partitions)
+Select (default p): e
+Partition number (3,4, default 3): 
+First sector (12584960-41943039, default 12584960): 
+Last sector, +/-sectors or +/-size{K,M,G,T,P} (12584960-41943039, default 41943039): +6G
+
+Created a new partition 3 of type 'Extended' and of size 6 GiB.
+
+Command (m for help): t
+Partition number (1-3, default 3): 3
+Hex code (type L to list all codes): L
+
+ 0  Empty           24  NEC DOS         81  Minix / old Lin bf  Solaris        
+ 1  FAT12           27  Hidden NTFS Win 82  Linux swap / So c1  DRDOS/sec (FAT-
+ 2  XENIX root      39  Plan 9          83  Linux           c4  DRDOS/sec (FAT-
+ 3  XENIX usr       3c  PartitionMagic  84  OS/2 hidden or  c6  DRDOS/sec (FAT-
+ 4  FAT16 <32M      40  Venix 80286     85  Linux extended  c7  Syrinx         
+ 5  Extended        41  PPC PReP Boot   86  NTFS volume set da  Non-FS data    
+ 6  FAT16           42  SFS             87  NTFS volume set db  CP/M / CTOS / .
+ 7  HPFS/NTFS/exFAT 4d  QNX4.x          88  Linux plaintext de  Dell Utility   
+ 8  AIX             4e  QNX4.x 2nd part 8e  Linux LVM       df  BootIt         
+ 9  AIX bootable    4f  QNX4.x 3rd part 93  Amoeba          e1  DOS access     
+ a  OS/2 Boot Manag 50  OnTrack DM      94  Amoeba BBT      e3  DOS R/O        
+ b  W95 FAT32       51  OnTrack DM6 Aux 9f  BSD/OS          e4  SpeedStor      
+ c  W95 FAT32 (LBA) 52  CP/M            a0  IBM Thinkpad hi ea  Rufus alignment
+ e  W95 FAT16 (LBA) 53  OnTrack DM6 Aux a5  FreeBSD         eb  BeOS fs        
+ f  W95 Ext'd (LBA) 54  OnTrackDM6      a6  OpenBSD         ee  GPT            
+10  OPUS            55  EZ-Drive        a7  NeXTSTEP        ef  EFI (FAT-12/16/
+11  Hidden FAT12    56  Golden Bow      a8  Darwin UFS      f0  Linux/PA-RISC b
+12  Compaq diagnost 5c  Priam Edisk     a9  NetBSD          f1  SpeedStor      
+14  Hidden FAT16 <3 61  SpeedStor       ab  Darwin boot     f4  SpeedStor      
+16  Hidden FAT16    63  GNU HURD or Sys af  HFS / HFS+      f2  DOS secondary  
+17  Hidden HPFS/NTF 64  Novell Netware  b7  BSDI fs         fb  VMware VMFS    
+18  AST SmartSleep  65  Novell Netware  b8  BSDI swap       fc  VMware VMKCORE 
+1b  Hidden W95 FAT3 70  DiskSecure Mult bb  Boot Wizard hid fd  Linux raid auto
+1c  Hidden W95 FAT3 75  PC/IX           bc  Acronis FAT32 L fe  LANstep        
+1e  Hidden W95 FAT1 80  Old Minix       be  Solaris boot    ff  BBT            
+Hex code (type L to list all codes): 
+Hex code (type L to list all codes): 
+Hex code (type L to list all codes): 82
+
+Changed type of partition 'Extended' to 'Linux swap / Solaris'.
+
+Command (m for help): n
+Partition type
+   p   primary (3 primary, 0 extended, 1 free)
+   e   extended (container for logical partitions)
+Select (default e): e
+
+Selected partition 4
+First sector (25167872-41943039, default 25167872): 
+Last sector, +/-sectors or +/-size{K,M,G,T,P} (25167872-41943039, default 41943039): +6G
+
+Created a new partition 4 of type 'Extended' and of size 6 GiB.
+
+Command (m for help): p
+Disk /dev/xvdf: 20 GiB, 21474836480 bytes, 41943040 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x790b8296
+
+Device     Boot    Start      End  Sectors Size Id Type
+/dev/xvdf1          2048  6293503  6291456   3G 83 Linux
+/dev/xvdf2       6293504 12584959  6291456   3G 83 Linux
+/dev/xvdf3      12584960 25167871 12582912   6G 82 Linux swap / Solaris
+/dev/xvdf4      25167872 37750783 12582912   6G  5 Extended
+
+Command (m for help): t
+Partition number (1-4, default 4): 
+Hex code (type L to list all codes): 82
+
+Changed type of partition 'Extended' to 'Linux swap / Solaris'.
+
+Command (m for help): p
+Disk /dev/xvdf: 20 GiB, 21474836480 bytes, 41943040 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x790b8296
+
+Device     Boot    Start      End  Sectors Size Id Type
+/dev/xvdf1          2048  6293503  6291456   3G 83 Linux
+/dev/xvdf2       6293504 12584959  6291456   3G 83 Linux
+/dev/xvdf3      12584960 25167871 12582912   6G 82 Linux swap / Solaris
+/dev/xvdf4      25167872 37750783 12582912   6G 82 Linux swap / Solaris
+
+Command (m for help): w
+The partition table has been altered.
+Calling ioctl() to re-read partition table.
+Syncing disks.
+
+
+root@ip-172-31-89-128:/home/ubuntu# man partprobe
+root@ip-172-31-89-128:/home/ubuntu# partprobe /dev/xvdf
+root@ip-172-31-89-128:/home/ubuntu# fdisk -l
+Disk /dev/loop0: 24.10 MiB, 26189824 bytes, 51152 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/loop1: 26.65 MiB, 27930624 bytes, 54552 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/loop2: 55.5 MiB, 58183680 bytes, 113640 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/loop3: 55.52 MiB, 58204160 bytes, 113680 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/loop4: 61.85 MiB, 64835584 bytes, 126632 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/loop5: 61.91 MiB, 64897024 bytes, 126752 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/loop6: 67.25 MiB, 70508544 bytes, 137712 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/loop7: 67.94 MiB, 71221248 bytes, 139104 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/xvda: 8 GiB, 8589934592 bytes, 16777216 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x24ca9e81
+
+Device     Boot Start      End  Sectors Size Id Type
+/dev/xvda1 *     2048 16777182 16775135   8G 83 Linux
+
+
+Disk /dev/xvdf: 20 GiB, 21474836480 bytes, 41943040 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x790b8296
+
+Device     Boot    Start      End  Sectors Size Id Type
+/dev/xvdf1          2048  6293503  6291456   3G 83 Linux
+/dev/xvdf2       6293504 12584959  6291456   3G 83 Linux
+/dev/xvdf3      12584960 25167871 12582912   6G 82 Linux swap / Solaris
+/dev/xvdf4      25167872 37750783 12582912   6G 82 Linux swap / Solaris
+
+
+Disk /dev/xvdg: 21 GiB, 22548578304 bytes, 44040192 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/loop8: 43.6 MiB, 45703168 bytes, 89264 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+------------------------------------------------------------------------------------------------
+
+ 
+c)  Format all 4 partitions and create ext4 filesystem on that
+
+//for xvdf1
+
+root@ip-172-31-89-128:/home/ubuntu# mkfs.ext4 /dev/xvdf1
+mke2fs 1.45.5 (07-Jan-2020)
+Creating filesystem with 786432 4k blocks and 196608 inodes
+Filesystem UUID: 3d56e3ff-fea3-4817-9d65-b83ebff5c76f
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912
+
+Allocating group tables: done                            
+Writing inode tables: done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information: done 
+----------------------------------------------------------------------------------
+
+//for xvdf2
+
+root@ip-172-31-89-128:/home/ubuntu# mkfs.ext4 /dev/xvdf2
+mke2fs 1.45.5 (07-Jan-2020)
+Found a dos partition table in /dev/xvdf2
+Proceed anyway? (y,N) y
+Creating filesystem with 786432 4k blocks and 196608 inodes
+Filesystem UUID: b2c8602a-b271-4ce8-ac20-949f305d3e7a
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912
+
+Allocating group tables: done                            
+Writing inode tables: done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information: done 
+----------------------------------------------------------------------------------
+
+// for xvdf3
+
+root@ip-172-31-89-128:/home/ubuntu# mkfs.ext4 /dev/xvdf3
+mke2fs 1.45.5 (07-Jan-2020)
+Creating filesystem with 1572864 4k blocks and 393216 inodes
+Filesystem UUID: 473d90a9-c0ca-428e-9652-59d2c25dbcb1
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736
+
+Allocating group tables: done                            
+Writing inode tables: done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information: done 
+-------------------------------------------------------------------------------
+
+//for xvdf4
+
+root@ip-172-31-89-128:/home/ubuntu# mkfs.ext4 /dev/xvdf4
+mke2fs 1.45.5 (07-Jan-2020)
+Creating filesystem with 1572864 4k blocks and 393216 inodes
+Filesystem UUID: d9e37aae-d5bf-4d32-a037-fea5acb8dd1f
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736
+
+Allocating group tables: done                            
+Writing inode tables: done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information: done 
+---------------------------------------------------------------------------------------------
+
+ d) Create 4 folders inside root ( / ) folder name it as Data1, Data2, Data3, Data4
+
+root@ip-172-31-89-128:/home/ubuntu# mkdir Data1 Data2 Data3 Data4
+
+-----------------------------------------------------------------------------------------------------
+
+ e) Mount all formated partitions on the respective folders
+
+root@ip-172-31-89-128:/home/ubuntu# mount /dev/xvdf1 /home/ubuntu/Data1
+
+
+root@ip-172-31-89-128:/home/ubuntu# mount /dev/xvdf2 /home/ubuntu/Data2/
+
+root@ip-172-31-89-128:/home/ubuntu# mount /dev/xvdf3 /home/ubuntu/Data3/
+
+root@ip-172-31-89-128:/home/ubuntu# mount /dev/xvdf4 /home/ubuntu/Data4/
+
+----------------------------------------------------------------------------------------------------------
+
+
+root@ip-172-31-89-128:/home/ubuntu# df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/root       7.7G  2.0G  5.8G  26% /
+devtmpfs        479M     0  479M   0% /dev
+tmpfs           485M     0  485M   0% /dev/shm
+tmpfs            97M  836K   97M   1% /run
+tmpfs           5.0M     0  5.0M   0% /run/lock
+tmpfs           485M     0  485M   0% /sys/fs/cgroup
+/dev/loop1       27M   27M     0 100% /snap/amazon-ssm-agent/5163
+/dev/loop0       25M   25M     0 100% /snap/amazon-ssm-agent/4046
+/dev/loop2       56M   56M     0 100% /snap/core18/2253
+/dev/loop3       56M   56M     0 100% /snap/core18/2284
+/dev/loop4       62M   62M     0 100% /snap/core20/1242
+/dev/loop5       62M   62M     0 100% /snap/core20/1361
+/dev/loop6       68M   68M     0 100% /snap/lxd/21835
+/dev/loop7       68M   68M     0 100% /snap/lxd/22526
+/dev/loop8       44M   44M     0 100% /snap/snapd/14978
+tmpfs            97M     0   97M   0% /run/user/1000
+/dev/xvdf1      2.9G  9.0M  2.8G   1% /home/ubuntu/Data1
+/dev/xvdf2      2.9G  9.0M  2.8G   1% /home/ubuntu/Data2
+/dev/xvdf3      5.9G   24M  5.6G   1% /home/ubuntu/Data3
+/dev/xvdf4      5.9G   24M  5.6G   1% /home/ubuntu/Data4
+root@ip-172-31-89-128:/home/ubuntu# 
+--------------------------------------------------------------------------------------------------
+
+ 
+f)  Create empty file inside each folders of size 2 GB, 2GB, 4 GB and 4 GB respectively  using  command -  dd - "convert and copy a file"
+
+root@ip-172-31-89-128:/home/ubuntu# cd Data1
+root@ip-172-31-89-128:/home/ubuntu/Data1# dd if=/dev/xvdf1 of=1g.img bs=1 count=0 seek=2G
+0+0 records in
+0+0 records out
+0 bytes copied, 0.000186389 s, 0.0 kB/s
+
+
+
+root@ip-172-31-89-128:/home/ubuntu# cd Data1
+root@ip-172-31-89-128:/home/ubuntu/Data1# dd if=/dev/xvdf1 of=1g.img bs=1 count=0 seek=2G
+0+0 records in
+0+0 records out
+0 bytes copied, 0.000171327 s, 0.0 kB/s
+root@ip-172-31-89-128:/home/ubuntu/Data1# dd if=/dev/xvdf2 of=1g.img bs=1 count=0 seek=2G
+0+0 records in
+0+0 records out
+0 bytes copied, 0.000187978 s, 0.0 kB/s
+root@ip-172-31-89-128:/home/ubuntu/Data1# dd if=/dev/xvdf3 of=1g.img bs=1 count=0 seek=2G
+0+0 records in
+0+0 records out
+0 bytes copied, 0.00017543 s, 0.0 kB/s
+root@ip-172-31-89-128:/home/ubuntu/Data1# dd if=/dev/xvdf4 of=1g.img bs=1 count=0 seek=2G
+0+0 records in
+0+0 records out
+0 bytes copied, 0.000174751 s, 0.0 kB/s
+root@ip-172-31-89-128:/home/ubuntu/Data1# cd ..
+root@ip-172-31-89-128:/home/ubuntu# cd Data2
+root@ip-172-31-89-128:/home/ubuntu/Data2# dd if=/dev/xvdf2 of=1g.img bs=1 count=0 seek=2G
+0+0 records in
+0+0 records out
+0 bytes copied, 0.00018301 s, 0.0 kB/s
+root@ip-172-31-89-128:/home/ubuntu/Data2# cd ..
+root@ip-172-31-89-128:/home/ubuntu# cd Data3
+root@ip-172-31-89-128:/home/ubuntu/Data3# dd if=/dev/xvdf3 of=1g.img bs=1 count=0 seek=4G
+0+0 records in
+0+0 records out
+0 bytes copied, 0.000182731 s, 0.0 kB/s
+root@ip-172-31-89-128:/home/ubuntu/Data3# cd ..
+root@ip-172-31-89-128:/home/ubuntu# cd Data4
+root@ip-172-31-89-128:/home/ubuntu/Data4# dd if=/dev/xvdf4 of=1g.img bs=1 count=0 seek=4G
+0+0 records in
+0+0 records out
+0 bytes copied, 0.000172554 s, 0.0 kB/s
+
+
+---------------------------------------------------------------------------------------------------------
+
+g) Go inside /Data1  and run  command -  while(true); do sleep 5s; done  , do ctrl-z
+
+root@ip-172-31-89-128:/home/ubuntu/Data4# cd ..
+
+root@ip-172-31-89-128:/home/ubuntu# while(true);
+> do sleep 5s;
+> done
+^Z
+[4]+  Stopped                 sleep 5s
+--------------------------------------------------------------------------------------
+
+
+ h) Check disk utilization of each mount point
+
+root@ip-172-31-89-128:/home/ubuntu# df -H
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/root       8.3G  2.1G  6.2G  26% /
+devtmpfs        502M     0  502M   0% /dev
+tmpfs           509M     0  509M   0% /dev/shm
+tmpfs           102M  865k  101M   1% /run
+tmpfs           5.3M     0  5.3M   0% /run/lock
+tmpfs           509M     0  509M   0% /sys/fs/cgroup
+/dev/loop1       29M   29M     0 100% /snap/amazon-ssm-agent/5163
+/dev/loop0       27M   27M     0 100% /snap/amazon-ssm-agent/4046
+/dev/loop2       59M   59M     0 100% /snap/core18/2253
+/dev/loop3       59M   59M     0 100% /snap/core18/2284
+/dev/loop4       65M   65M     0 100% /snap/core20/1242
+/dev/loop5       66M   66M     0 100% /snap/core20/1361
+/dev/loop6       71M   71M     0 100% /snap/lxd/21835
+/dev/loop7       72M   72M     0 100% /snap/lxd/22526
+/dev/loop8       46M   46M     0 100% /snap/snapd/14978
+/dev/xvdf1      3.2G  9.5M  3.0G   1% /home/ubuntu/Data1
+/dev/xvdf2      3.2G  9.5M  3.0G   1% /home/ubuntu/Data2
+/dev/xvdf3      6.3G   26M  6.0G   1% /home/ubuntu/Data3
+/dev/xvdf4      6.3G   26M  6.0G   1% /home/ubuntu/Data4
+tmpfs           102M     0  102M   0% /run/user/1000
+
+------------------------------------------------------------------------------------
+
+
+i)  Unmount all partitions /Data1, /Data2, /Data3 and /Data4
+
+root@ip-172-31-89-128:/home/ubuntu# sudo umount /dev/xvdf1
+
+root@ip-172-31-89-128:/home/ubuntu# sudo umount /dev/xvdf2
+
+root@ip-172-31-89-128:/home/ubuntu# sudo umount /dev/xvdf3
+
+root@ip-172-31-89-128:/home/ubuntu# sudo umount /dev/xvdf4
